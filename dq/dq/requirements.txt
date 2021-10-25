@@ -1,0 +1,14 @@
+Flask
+flask-login
+flask-dance
+oauthlib
+
+APScheduler
+
+cloudant==2.13.0
+
+firebase-admin
+python-dotenv
+itsdangerous
+Jinja2
+Werkzeug

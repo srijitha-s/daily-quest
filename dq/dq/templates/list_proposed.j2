@@ -1,0 +1,162 @@
+{% extends 'base.j2' %}
+{% block head %}
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+
+
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='MonthPicker.min.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+
+<script src="/static/MonthPicker.min.js"></script>
+
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/python.min.js"></script>
+<script>hljs.highlightAll();</script>
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='MonthPicker.min.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+<script src="/static/MonthPicker.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/font-awesome-line-awesome/css/all.min.css" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',
+filename='display_proposed/css/global.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',
+filename='display_proposed/css/style.css') }}">
+
+{% endblock %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col m5">
+                <div id="i0m2d">
+                    <input id="PastDateDemo" type="text"/>
+                </div>
+            </div>
+            <div class="col m7">
+                <div id="ilv9x">
+                    <input id="displayquests" type="button" value="display">
+                </div>
+            </div>
+        </div>
+        <div class="row">   </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" id="iy9oa" style="width:9em">Date</th>
+                    <th scope="col" id="irrfa">Quest Name</th>
+                </tr>
+            </thead>
+            <tbody id="quest_list">
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-9">
+        <div>
+            <h3 id="quest_name"  >Quest Name:</h3>
+            <p id="quest_desc">quest_description</p>
+        </div>
+        <div>
+            <h3 id="iftbk">Solutions</h3>
+            <pre><code class="language-python hljs"
+                       id="quest_solution"
+                       style="white-space:pre-wrap; max-height: 13em; min-height:
+                       1em;" ></code></pre>
+        </div>
+        <hr>
+        <h2>Proposed Solutions</h2>
+        <div id="proposed_solutions">
+
+        </div>
+    </div>
+</div>
+<div class="row"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='display_proposed/js/global.js') }}"></script>
+<script src="{{ url_for('static', filename='display_proposed/js/script.js') }}"></script>
+
+<script>
+    var quests_detail = "";
+    $(document).ready(function() {
+        // Allows at most 1 month from today (past months only).
+        $('#PastDateDemo').MonthPicker({ MaxMonth: -1, ShowIcon: false,
+            MonthFormat: "yy/mm"});
+        $("#displayquests").click(function(e) {
+            // console.log($("#PastDateDemo").val());
+            e.preventDefault();
+            var req_month = $("#PastDateDemo").val();
+            $.ajax({
+                type: "POST",
+                url: "/get_past_quests_by_month",
+                data: {
+                    month: req_month,
+                },
+                success: function(result) {
+                    // var req_month = $("#PastDateDemo").val();
+
+                    quests_detail = result.data;
+
+                    $("#quest_list tr").remove();
+                    $.each(result.data, function(k, v) {
+                        quests_detail = result.data;
+                        console.log(k, v['Name']);
+                        $("#quest_list").append( "<tr><th class='" + k +
+                            "'scope='row'>" + k + "</th><td id='iho5t' val='" +
+                            k  + "'>" + v['Name'] +  "</td></tr>");
+
+                    });
+                    console.log(result);
+                },
+                error: function(result) {
+                    alert('error');
+                }
+            });
+        });
+
+
+
+        $("#quest_list").on('click','tr',function() {
+            var id = $('> #iho5t', this).attr("val");
+            $("#quest_name").text(quests_detail[id]['Name']);
+            $("#quest_desc").html(quests_detail[id]['Quest']);
+            if (typeof quests_detail[id]['solution'] === "undefined") {
+                $("#quest_solution").html("$$TODO$$");
+            } else {
+                $("#quest_solution").html(quests_detail[id]['solution']);
+            }
+            $("#proposed_solutions div").remove();
+            $.each(quests_detail[id]['proposed_solution'], function(i, block){
+                console.log(block);
+                $("#proposed_solutions").append(`
+                    <div>
+                    <h3 id="irdo2l">` + block["username"] +`</h3>
+                    <pre id="i7j1xu"><code>` +  block["proposed"]  + `</code></pre>
+                    </div>`);
+                    });
+                    $('pre code').each(function(i, block) {
+                    hljs.highlightElement(block);
+                    });
+
+
+
+                    });
+                    });
+</script>
+
+{% endblock %}
+

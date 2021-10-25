@@ -1,0 +1,40 @@
+{% extends 'base.j2' %}
+{% block title %}Add Quest{% endblock %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<script src="https://pagecdn.io/lib/ace/1.4.12/ace.min.js"
+    crossorigin="anonymous"
+    integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU=" ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/mode-python.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/snippets/python.min.js" crossorigin="anonymous"  ></script>
+</style>
+{% endblock %}
+{% block content %}
+    <h3>Add Quest</h3>
+
+	<form action="/add_quest"  method="post">
+	   <input type="text" placeholder="Quest Name" name="Name" style="width: 50%" / ><br />
+	   <textarea placeholder="Quest Details" name="Quest"  rows="4" cols="100" value="Quest Details"></textarea>
+    <h3>Solution</h3>
+    <div id="solution" name="solution"
+	style="width: 90%; height: 20em"
+	placeholder="Please enter your solution here"></div>
+	<br>
+    <textarea name="solution" style="display: None;"></textarea>
+	  <input type="submit" value="Submit">
+	</form>
+
+        <script>
+    var editor = ace.edit("solution");
+    var textarea = $('textarea[name="solution"]');
+    editor.getSession().on("change", function () {
+        textarea.val(editor.getSession().getValue());
+    });
+
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/python");
+</script>
+{% endblock %}

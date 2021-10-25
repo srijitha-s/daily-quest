@@ -1,0 +1,216 @@
+{% extends 'base.j2' %}
+{% block head %}
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+
+
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='MonthPicker.min.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+
+<script src="/static/MonthPicker.min.js"></script>
+
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/python.min.js"></script>
+<script>hljs.highlightAll();</script>
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdn.rawgit.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='MonthPicker.min.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+<script src="/static/MonthPicker.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/font-awesome-line-awesome/css/all.min.css" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',
+filename='display_proposed/css/global.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',
+filename='display_proposed/css/style.css') }}">
+
+{% endblock %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col m5">
+                <div id="i0m2d">
+                    <input id="PastDateDemo" type="text" style="width: 7em"/>
+                </div>
+            </div>
+            <div class="col m7">
+                <div id="ilv9x">
+                    <input id="displayquests" type="button" value="display">
+                </div>
+            </div>
+        </div>
+        <div class="row">   </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" id="iy9oa" style="width:9em">Date</th>
+                    <th scope="col" id="irrfa">Quest Name</th>
+                </tr>
+            </thead>
+            <tbody id="quest_list">
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-9" id="quest_details" style="display: none">
+        <div>
+            <h3 id="quest_name"  >Quest Name:</h3>
+            <p id="quest_desc">quest_description</p>
+        </div>
+        <div>
+            <h3 id="iftbk">Solutions</h3>
+            <pre><code class="language-python hljs"
+                       id="quest_solution"
+                       style="white-space:pre-wrap; max-height: 13em; min-height:
+                       1em;" ></code></pre>
+        </div>
+        <hr>
+        <h2>Proposed Solutions</h2>
+        <form action="/evaluate" method="post">
+            <input id="quest_date" name="quest_date" style="display:none"/>
+            <div id="proposed_solutions">
+
+            </div>
+            <input type="submit" value="submit" id="eval_submit" />
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='display_proposed/js/global.js') }}"></script>
+<script src="{{ url_for('static', filename='display_proposed/js/script.js') }}"></script>
+
+<script>
+    var quests_detail = "";
+    var selected_date = "";
+    var req_month = "";
+    function getFormData($form){
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
+
+    $(document).ready(function() {
+        // Allows at most 1 month from today (past months only).
+        $('#PastDateDemo').MonthPicker({ MaxMonth: 0, ShowIcon: false,
+            MonthFormat: "yy/mm"});
+        $("#displayquests").click(function(e) {
+            console.log($("#PastDateDemo").val());
+            e.preventDefault();
+            req_month = $("#PastDateDemo").val();
+            $.ajax({
+                type: "POST",
+                url: "/get_past_quests_by_month",
+                data: {
+                    month: req_month,
+                },
+                success: function(result) {
+                    quests_detail = result.data;
+                    $("#quest_list tr").remove();
+                    $.each(result.data, function(k, v) {
+                        quests_detail = result.data;
+                        console.log(k, v['Name']);
+                        $("#quest_list").append( "<tr><th class='" + k +
+                            "'scope='row'>" + k + "</th><td id='iho5t' val='" +
+                            k  + "'>" + v['Name'] +  "</td></tr>");
+
+                    });
+                    console.log(result);
+                },
+                error: function(result) {
+                    alert('error');
+                }
+            });
+        });
+
+        $("#quest_list").on('click','tr',function() {
+            $("#quest_details").show();
+            var id = $('> #iho5t', this).attr("val");
+            $("#quest_name").text(quests_detail[id]['Name']);
+            $("#quest_desc").html(quests_detail[id]['Quest']);
+            if (typeof quests_detail[id]['solution'] === "undefined") {
+                $("#quest_solution").html("$$TODO$$");
+            } else {
+                $("#quest_solution").html(quests_detail[id]['solution']);
+            }
+            $("#proposed_solutions div").remove();
+            $("#quest_date").val(req_month + "/" + id);
+            $("#quest_date").text(req_month + "/" + id);
+            $.each(quests_detail[id]['proposed_solution'], function(i,
+                block){
+                // console.log("i" +  i + " id "+ id );
+                $("#proposed_solutions").append(`
+                    <div>
+                    <h3 id="irdo2l">` + block["username"] +`</h3>
+                    <pre id="i7j1xu"><code>` +  block["proposed"]  + `</code></pre>
+                    <input type="radio" id=currect_"` + i + `" name="eval_` + i + `"
+                    value="currect">
+                    <label for=currect_"` + i + `">Correct Solution</label>
+                    <input type="radio" id=wrong_"` + i + `" name="eval_` + i + `"
+                    value="wrong">
+                    <label for=wrong_"` + i + `">Wrong Solution</label>
+                    <input type="radio" id=pending_"` + i + `" name="eval_` + i + `"
+                    value="pending">
+                    <label for=pending_"` + i + `">Pending Validation</label><br>
+                    </div>`);
+		    name = "eval_" + i;
+		    console.log($("input[name='"+name+"'][value='" + "correct"   + "']"));
+		    $("input[name='"+name+"'][value='" + block['eval']   + "']").prop('checked', true);
+                    });
+                    $('pre code').each(function(i, block) {
+                    hljs.highlightElement(block);
+                    });
+
+                    });
+
+                    $("form").submit(function (event) {
+                    //event.preventDefault(); // avoid to execute the actual submit of the form.
+
+                    var form = $(this);
+
+                    var form_data = getFormData(form);
+                    var url = form.attr('action');
+
+                    $.ajax({
+                    type: "POST",
+                    url: "/evaluate",
+                    data: form.serializeArray(),
+                    dataType: "json",
+                    encode: true,
+                    }).done(function (data) {
+                    console.log(data);
+
+                    if (!data.success) {
+                    $("form").html(
+                    '<div class="alert alert-success">' + data.message + "</div>"
+                    );
+                    };
+
+                    });
+
+                    // event.preventDefault(); // avoid to execute the actual submit of the form.
+
+                    });
+                    });
+</script>
+
+{% endblock %}
+

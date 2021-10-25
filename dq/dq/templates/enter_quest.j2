@@ -1,0 +1,40 @@
+{% extends 'base.j2' %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<script src="https://pagecdn.io/lib/ace/1.4.12/ace.min.js"
+    crossorigin="anonymous"
+    integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU=" ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/mode-python.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.12/theme-monokai.min.js" crossorigin="anonymous"  ></script>
+{% endblock %}
+{% block content %}
+            <h3>Today's Quest</h3>
+
+		<blockquote style="text-align: left">
+		    <pre>{{ Quest }}</pre>
+		</blockquote>
+            <h3>Your proposed solution</h3>
+		<form action="/submit_solution"  method="post">
+		    <input value="{{ quest_date }}" type="hidden" id="quest_date"
+		    name="quest_date"/>
+            <div id="proposed_solution" name="proposed_solution"
+                style="width: 90%; height: 20em"
+                placeholder="Please enter your solution here">
+            </div>
+		<br>
+		  <input type="submit" value="Submit">
+		</form>
+
+        <script>
+    var editor = ace.edit("proposed_solution");
+    var textarea = $('textarea[name="hidden_editor"]');
+    editor.getSession().on("change", function () {
+        textarea.val(editor.getSession().getValue());
+    });
+
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/python");
+</script>
+{% endblock %}

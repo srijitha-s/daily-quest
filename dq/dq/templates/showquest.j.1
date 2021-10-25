@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Welcome</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=PT+Mono&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css");
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+
+
+body {
+    font-family: "Roboto";
+}
+.detail {
+margin: 0;
+        padding-left: 5px;
+border: solid gold 3px;
+        background-color: beige;
+}
+.google-btn {
+width: 184px;
+height: 42px;
+        background-color: #4285f4;
+        border-radius: 2px;
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+display: block;
+}
+.google-btn .google-icon-wrapper {
+position: absolute;
+          margin-top: 1px;
+          margin-left: 1px;
+width: 40px;
+height: 40px;
+        border-radius: 2px;
+        background-color: #fff;
+}
+.google-btn .google-icon {
+position: absolute;
+          margin-top: 11px;
+          margin-left: 11px;
+width: 18px;
+height: 18px;
+}
+.google-btn .btn-text {
+float: right;
+margin: 11px 11px 0 0;
+color: #fff;
+       font-size: 14px;
+       letter-spacing: 0.2px;
+       font-family: "Roboto";
+}
+.google-btn:hover {
+    box-shadow: 0 0 6px #4285f4;
+}
+.google-btn:active {
+background: #1669f2;
+}
+</style>
+
+<!--
+    <link crossorigin="anonymous" rel="stylesheet" href="/static/editor.css" />
+
+<script crossorigin="anonymous" type="application/javascript" src="/static/js/editor.js"></script>
+-->
+</head>
+<body>
+
+{% if not google_data %}
+ <div id="firebaseui-auth-container"></div>
+
+<!--
+<p style="color:#333;">You are not logged in, Click on the below link to sign in with google.</p>
+<a href="/login" class="google-btn">
+<div class="google-icon-wrapper">
+<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+</div>
+<p class="btn-text"><b>Sign in with google</b></p>
+</a>
+-->
+{% else %}
+<h1><span style="font-family:Trebuchet MS,Helvetica,sans-serif"><img alt="" src=" {{ google_data.picture}}" style="height:42px; width:42px" />&nbsp;Welcome {{ google_data.name}}, to Daily Quest</span></h1>
+<a href="/logout">Logout</a>
+<h2><span style="font-family:Trebuchet MS,Helvetica,sans-serif">Today&#39;s Quest</span></h2>
+
+<blockquote>
+    <pre>{{ Quest }} </pre>
+</blockquote>
+
+<hr />
+<p>Your proposed solution</p>
+<form action="/submit_solution"  method="post">
+    <input value="{{ quest_date }}" type="hidden" id="quest_date"
+    name="quest_date"/>
+<textarea id="proposed_solution" name="proposed_solution" rows="10" cols="90">
+  Enter your code here
+</textarea>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+<!--
+<form>
+    <div style="height: 200px;">
+<textarea placeholder="Enter HTML Source Code" id="editing" spellcheck="false" oninput="update(this.value); sync_scroll(this);" onscroll="sync_scroll(this);" onkeydown="check_tab(this, event);"></textarea>
+<pre id="highlighting" aria-hidden="true">
+<code class="language-python hljs" id="highlighting-content">
+
+&lt;span title=&quot;Start Typing&quot;&gt;Just start typing!&lt;/span&gt;
+</code>
+</pre>
+</div>
+    <input type="Submit"></input>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+-->
+{% endif %}
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
+
+    <script>
+    ¦   const firebaseConfig = {
+    ¦   ¦   ¦ apiKey: "AIzaSyBBj6dylm4MyYhtFOHhftKmf6dgkDM3HSE",
+    ¦   ¦   ¦ authDomain: "faqsbymayank.firebaseapp.com",
+    ¦   ¦   ¦ databaseURL: "https://faqsbymayank-default-rtdb.asia-southeast1.firebasedatabase.app",
+    ¦   ¦   ¦ projectId: "faqsbymayank",
+    ¦   ¦   ¦ storageBucket: "faqsbymayank.appspot.com",
+    ¦   ¦   ¦ messagingSenderId: "962101736808",
+    ¦   ¦   ¦ appId: "1:962101736808:web:35aec83930a7a7c1df92dd",
+    ¦   ¦   ¦ measurementId: "G-2FG7ERY32E"
+    ¦   ¦   };
+    ¦   // Initialize Firebase
+    ¦   firebase.initializeApp(firebaseConfig);
+    ¦   firebase.analytics();
+    </script>
+
+</body>
+<html>

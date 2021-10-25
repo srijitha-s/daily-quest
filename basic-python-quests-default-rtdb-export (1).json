@@ -1,0 +1,207 @@
+{
+  "QuestionBank" : {
+    "Basic Python" : {
+      "-Mm6czH0r1DD9q-WmB3y" : {
+        "name" : "Add Integer List",
+        "quest" : "Write a function to add all the elements of the list. All the elements of the list are of integer data type.",
+        "solution" : "from functools import reduce\r\n\r\nscores = [10, 21, 34, 22, 16]\r\ntotal = reduce(lambda a, b: a + b, scores)\r\nprint(total)",
+        "used" : 1
+      },
+      "-Mm6eNU2qHmEJtkqg0nk" : {
+        "name" : "are we same",
+        "quest" : "We have a list with 10 values. We need to check if all the values are same.",
+        "solution" : "lst_same = [1, 1, 1, 1]\r\nlst_diff = [1, 2, 3, 1]\r\n\r\n# Solution 1 len/set\r\nlen(set(lst_same)) == 1\r\n\r\n# Solution 2:  all() method\r\nresult = all(ele == lst_same[0] for element in lst_same)\r\nprint(result)\r\n\r\n# Solution 3: Count Method\r\nlst_same.count(lst_same[0]) == len(lst_same)",
+        "used" : 1
+      },
+      "-MmAU8Mz_fjvbPpRtNx1" : {
+        "name" : "Tuple And List",
+        "quest" : "What is the difference between list and tuples in Python",
+        "solution" : "For most of the operations `tuple` and `list` are same except `tuple` is immutable and `list` is mutable.\r\nThis single change alone will make all the difference. as \r\n|-------------|--------|------|\r\n| Property    | Tuple  | List |\r\n|-------------|--------|------|\r\n| Mem Size    | Less   | More |\r\n| Change Size | No     | Yes  |\r\n| Append      | No     | Yes  |\r\n| Extend      | No     | Yes  |",
+        "used" : 0
+      },
+      "-MmFgUo-A6HnW0hud_3q" : {
+        "name" : "Even Add and Odd Subtract",
+        "quest" : "We have a list of numbers and need to add all the even numbers and subtract all the odd numbers from the list.",
+        "solution" : "TODO",
+        "used" : 0
+      }
+    },
+    "Core Python" : {
+      "-MlKSzUiqjo_Oy1ncEab" : {
+        "name" : "Mutable Objects as Arguments ",
+        "quest" : "How will you make sure mutable objects when passed as parameter does not change due to operations inside of function.",
+        "solution" : "The easiest way to make that sure it never happens, as in python the values are passed by reference, thus any operation happening inside the function will effect the mutable data passed to a function as shown in the below example.",
+        "used" : 0
+      },
+      "-MlKTdNWppS_SO44y9fM" : {
+        "name" : "Int to Word",
+        "quest" : "write a function to convert int to its equivalent english string",
+        "solution" : "$$TODO$$",
+        "used" : 0
+      },
+      "-MlKbbT0x1p2qtPMS0jL" : {
+        "name" : "All Palindrome",
+        "quest" : "Write a function to find all the Palindrome Permutations by using different combinations of the characters prensent in the string",
+        "solution" : "$$TODO$$",
+        "used" : 0
+      },
+      "-MlNycD7bTmkdKNCzeRs" : {
+        "name" : "Josephus Problem",
+        "quest" : "15 peoples are standing in a circle waiting to be executed. Counting begins at `0` point in the circle and proceeds around the circle in a clockwise direction. After that 2  people are skipped, the next person is executed. The procedure is repeated with the remaining people, starting with the next person, going in the same direction and skipping the same number of people, until only one person remains, and is freed.\r\n\r\nWrite a script to find the last person standing, provided `n` peoples are standing and `m` person's are skipped. ",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlO-P98nhfj60wdKnF_" : {
+        "name" : "Uppercase letter",
+        "quest" : "Find all the  uppercase letter's in a string",
+        "solution" : "msg = \"Welcome To India\"\r\n\r\nupper_letters = [x for x in msg if 'A' <= x <= 'Z']\r\n\r\nprint(upper_letters)",
+        "used" : 0
+      },
+      "-MlXHRRFiAabChZUQW2p" : {
+        "name" : "Longest substring",
+        "quest" : "Write a function to return the longest sub-string from the provided string which do not have repeated characters.",
+        "solution" : "msg = \"alTestsaregoodtest\"   def get_largest(msg: str) -> str:     previous = \"\"     new_str = \"\"       for i in msg:         if i not in new_str:             new_str += i         elif len(new_str) >= len(previous):             previous=new_str             new_str = \"\"                  return new_str if len(new_str) > len(previous) else previous       print(get_largest(msg))",
+        "used" : 0
+      },
+      "-MlbVnLpcKlZJ3k9gbhL" : {
+        "name" : "Longest valid brackets",
+        "quest" : "Write a function to find the longest valid brackets pair from the provided string which only contains just brackets '[' and ']'",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlbYe1wZ5tFKcUQHJ2p" : {
+        "name" : "\"Hopping calculator\"",
+        "quest" : "\"We have a list of 100 numbers with elements having value from 0 to 100. You are starting from first letter and follow the following logic to progress. \r\n- if the number is odd jump back that many number of times \r\n- if the number is even jump forward. \r\n- If you reach an number twice, skip it and select the next number available.\r\nNow once we  reach the end, add all the even numbers which you traverse and subtract them with all the odd numbers you iterated.\"",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-Mlf-9m4bqBOZ-9cZqe2" : {
+        "name" : "Find Anagrams",
+        "quest" : "You have provided a word, and a list of words, find all the anagrams of the word from that list. \r\nSay the list is \r\n1\r\n```\r\nactors\r\ncostar\r\ncastor\r\nactress\r\ncasters\r\nrecasts\r\nairmen\r\nmarine\r\nremain```\r\n\r\nand the word is `remain` then the output should be `airmen` and `remain`",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-Mlh9_znVEA9aVo8ZBFE" : {
+        "name" : "Is it Square",
+        "quest" : "We need a function which can return true if provided 4 coordinates in (x,y) format, make a square",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhAHS3h5k_-KXlemd2" : {
+        "name" : "Quest for Equidistant",
+        "quest" : "You have been provided three set of coordinates in (x,y) format, check they are equidistant from each other or not",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhA_kvrkhsMUBw_-60" : {
+        "name" : "Quest for Equidistant Part 2",
+        "quest" : "You have been provided a set of coordinates in (x,y,z) format and have to check if they are equidistant from given coordinate.",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhAtpnfEowjsSfZ-P2" : {
+        "name" : "Internet Plagiarism",
+        "quest" : "Write a script to find if the provided text is \" Internet Plagiarism\"",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhCXgbQ8Yc54JTxZak" : {
+        "name" : "Largest Edge in a Triangle",
+        "quest" : "Given three coordinates in (x,y) format, return the size of the largest edge of the triangle",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhCiCWLrKe4OByUa2i" : {
+        "name" : "Convert years to month",
+        "quest" : "Given age of a person in float, return it in terms of months.",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhDI2Xv6FoIfXWx8oh" : {
+        "name" : "Larger wtih added",
+        "quest" : "You are provided a list of numbers, return the pair of adjacent numbers whose sum is largest",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhDRXioCJT7tjy9x5I" : {
+        "name" : "smallest by subtraction",
+        "quest" : "You are provided a list of numbers, return the pair of adjacent numbers whose subtraction is smallest",
+        "solution" : "tODO",
+        "used" : 0
+      },
+      "-MlhDdF6wyds4aAaQXgQ" : {
+        "name" : "Add the lists",
+        "quest" : "Write a script to add the corresponding numbers from both the lists.",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhFVcf_2MsSvWDQ-1T" : {
+        "name" : "scramble helper",
+        "quest" : "Write a function which will get the list of characters and return a list of words which can be created from them using the help of a dictionary such as (https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-no-swears.txt)",
+        "solution" : "TODO",
+        "used" : 0
+      },
+      "-MlhcdJO2H1Q6gkVuc2x" : {
+        "name" : "Average Length",
+        "quest" : "Write a function to calculate average word length from the provided string",
+        "solution" : "TODO",
+        "used" : 0
+      }
+    }
+  },
+  "Topics" : {
+    "Basic Python" : {
+      "2021" : {
+        "10" : {
+          "15" : {
+            "qid" : "-Mm6eNU2qHmEJtkqg0nk"
+          },
+          "16" : {
+            "qid" : "-Mm6czH0r1DD9q-WmB3y"
+          },
+          "17" : {
+            "qid" : "-MmAU8Mz_fjvbPpRtNx1"
+          },
+          "18" : {
+            "qid" : "-MmAU8Mz_fjvbPpRtNx1"
+          },
+          "19" : {
+            "qid" : "-Mm6czH0r1DD9q-WmB3y"
+          }
+        }
+      }
+    },
+    "Core Python" : {
+      "2021" : {
+        "10" : {
+          "18" : {
+            "qid" : "-Mm6bd0h1aPxCWUjk0Qv"
+          },
+          "19" : {
+            "qid" : "-Mm6bd0h1aPxCWUjk0Qv"
+          }
+        }
+      }
+    }
+  },
+  "access_control_list" : {
+    "admins" : {
+      "jQkzReuGQsTnWi4aVMdlOV7HCTc2" : "funmaya1234@gmail.com"
+    }
+  },
+  "history" : {
+    "jQkzReuGQsTnWi4aVMdlOV7HCTc2" : {
+      "Basic Python" : {
+        "2021" : {
+          "10" : {
+            "16" : {
+              "proposed" : "TODO",
+              "q_id" : "-Mm6czH0r1DD9q-WmB3y",
+              "result" : "Not Evaluated"
+            }
+          }
+        }
+      }
+    }
+  }
+}
